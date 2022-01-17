@@ -1,0 +1,12 @@
+{
+ "argv": [
+  "eflint-jupyter",
+  "kernel",
+  "{connection_file}"
+ ],
+ "display_name": "eFLINT",
+ "language": "eFLINT",
+ "metadata": {
+  "debugger": true
+ }
+}

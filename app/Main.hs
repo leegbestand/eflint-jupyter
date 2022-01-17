@@ -73,9 +73,11 @@ displayFactChanges prev cur = unlines .  concat $
 
 
 displayError :: Error -> String
--- displayError (DisabledTransition te)    = "not a compliant action"
+displayError (RuntimeError te)    = "Runtime error"
 displayError NonDeterministicTransition = "non-deterministic transition attempt"
 displayError (CompilationError err)     = err
+displayError (NotTriggerable err)     = "Non trigger"
+
 
 
 -- We should have a pretty printer for Output. This is the third function that transforms it into a string??

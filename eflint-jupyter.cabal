@@ -23,26 +23,7 @@ source-repository head
   type: git
   location: https://github.com/githubuser/eflint-jupyter
 
-library
-  exposed-modules:
-      Lib
-  other-modules:
-      Paths_eflint_jupyter
-  hs-source-dirs:
-      src
-  build-depends:
-      aeson
-    , base
-    , bytestring
-    , containers
-    , flint-simulation
-    , ipython-kernel
-    , mtl
-    , parsec
-    , text
-  default-language: Haskell2010
-
-executable eflint-jupyter-exe
+executable eflint-jupyter
   main-is: Main.hs
   other-modules:
       Paths_eflint_jupyter
@@ -54,7 +35,6 @@ executable eflint-jupyter-exe
     , base
     , bytestring
     , containers
-    , eflint-jupyter
     , flint-simulation
     , ipython-kernel
     , mtl

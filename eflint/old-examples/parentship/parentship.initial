@@ -1,0 +1,9 @@
+
+person.
+
+natural parent(parent = "bob", child = "chloe").
+natural parent(parent = "bob", child = "david").
+adoptive parent(parent = "alice", child = "bob").
+
+(Foreach child : reward child(parent = "bob")).
+call for help.

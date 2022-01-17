@@ -1,0 +1,6 @@
+
+!call for help(child = "bob", parent = "alice").
+!call for help(child = "chloe", parent = "bob").
+!call for help(child = "david", parent = "bob").
+
+!reward child(child = "chloe", parent = "bob").

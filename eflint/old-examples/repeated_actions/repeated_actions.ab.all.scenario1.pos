@@ -1,0 +1,12 @@
+
+!repeatedly(actor = "alice").
+!repeatedly(actor = "bob").
+!repeatedly(actor = "alice").
+!repeatedly(actor = "bob").
+!repeatedly(actor = "alice").
++once(actor = "bob").
+-once-completed(actor = "bob").
++once(actor = "alice").
+-once-completed(actor = "alice").
+!once(actor = "bob").
+!once(actor = "alice").

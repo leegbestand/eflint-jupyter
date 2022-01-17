@@ -1,0 +1,12 @@
+Fact a Identified by Int
+Fact b Identified by Int
+Fact c Identified by Int
+
+Fact pythagorean Identified by a * b * c 
+ Holds when a * a + b * b == c * c.
+
+?pythagorean(3,4,5).
+?pythagorean(5,12,13).
+?pythagorean(8,15,17).
+?!pythagorean(1,2,3).
+?!pythagorean(6,6,6).

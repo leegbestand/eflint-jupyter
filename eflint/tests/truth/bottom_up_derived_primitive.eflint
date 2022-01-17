@@ -1,0 +1,8 @@
+
+Fact x Identified by Int 
+  Holds when x % 2 == 0.
+
+Fact even Identified by 1..10
+  Holds when x(even). 
+
+?x(even).

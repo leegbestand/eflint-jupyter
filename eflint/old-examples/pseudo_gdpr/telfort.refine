@@ -1,0 +1,10 @@
+Fact controller
+  Identified by "Telfort"
+
+Fact person
+  Identified by "alice" + "bob"
+
+Fact datatype
+  Identified by "phone number" + "address"
+
+

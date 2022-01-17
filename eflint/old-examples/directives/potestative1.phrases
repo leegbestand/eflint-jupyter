@@ -1,0 +1,10 @@
+// In context C, X has the power of obtaining R from Y by doing A
+Fact x Identified by X
+Fact c Identified by C
+Fact r Identified by x // x can be punished with P 
+Fact y Identified by Y
+Act a Actor x Recipient y Conditioned by c Creates r(x) 
++a          // permission
++c          // get into the right context
+a           // perform a
+?r          // query: rewarded?

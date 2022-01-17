@@ -1,0 +1,10 @@
+
+!give consent(subject = subject(person = "bob"), purpose = "research").
+!give consent(subject = subject(person = "bob"), purpose = "revenue").
+
+!collect consent(controller = "Telfort", consent = consent(purpose = "research"), subject = subject(person = "bob")).
+!collect consent(controller = "Telfort", consent = consent(purpose = "revenue"),  subject = subject(person = "bob")).
+
+!revoke consent(subject = subject(person = "bob"), consent = consent(purpose = "revenue")).
+
+!remove consent(controller = "Telfort", consent = consent(purpose = "revenue"), subject = subject(person = "bob")).

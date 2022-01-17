@@ -1,0 +1,18 @@
+
+Fact query Identified by Query
+  Holds when True
+  Conditioned by a 
+              && b 
+              && c 
+              && d 
+              && e
+
+Open Fact a Identified by A
+Fact b Identified by B Holds when a
+Open Fact c Identified by C
+Open Fact d Identified by D
+Fact e Identified by E Holds when Not(f) 
+Open Fact f Identified by F
+.
+
+?query(Query).

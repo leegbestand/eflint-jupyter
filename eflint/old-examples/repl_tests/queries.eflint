@@ -1,0 +1,7 @@
+Fact person.
+?person(Alice).
++person(Alice).
+?person(Alice).
+?person(Bob).
++person(Bob).
+?person(Bob).

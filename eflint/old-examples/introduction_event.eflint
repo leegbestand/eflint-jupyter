@@ -1,0 +1,7 @@
+
+Fact client.
+
+Event new-client
+  Related to client
+  Creates client
+  Holds when Not(Holds(client)).

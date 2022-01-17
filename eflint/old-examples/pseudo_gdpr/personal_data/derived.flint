@@ -1,0 +1,43 @@
+
+Fact non-identifiable 
+  Identified by ["missing" + "anonymized" + "obfuscated"]
+
+Fact person
+
+Fact associated subject 
+
+Fact content
+
+Fact data
+  Identified by [associated subject * content]
+
+Fact personal data
+  Identified by [person * content]
+  Present When data(associated subject = person)
+
+Fact subject
+  Identified by person
+  Derived from subject(personal data[person]) When Present(personal data)
+
+##
+
+Fact person
+  Identified by ["alice" + "bob" + "chloe"]
+
+Fact associated subject
+  Identified by ["alice" + "bob" + "chloe" + "missing" + "anonymized" + "obfuscated"]
+
+Fact content
+  Identified by ["1" + "2" + "3" + "4" + "5" + "6"]
+
+###
+
+non-identifiable.
+person.
+
+data(associated subject = "missing", content = "1"). 
+data(associated subject = "obfuscated", content = "2"). 
+data(associated subject = "anonymized", content = "3"). 
+data(associated subject = "bob", content = "4").
+data(associated subject = "bob", content = "5").
+data(associated subject = "alice", content = "6").

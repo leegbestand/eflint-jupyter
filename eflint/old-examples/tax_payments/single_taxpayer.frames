@@ -1,0 +1,54 @@
+
+Fact taxpayer 
+  Identified by "taxpayer" 
+
+Fact inspector 
+  Identified by "inspector"
+
+Fact debt
+  Identified by Int
+
+Fact remaining debt
+  Identified by Int
+  Derived from 
+    (Foreach debt : (debt - Sum(Foreach payment : payment.payment amount
+                                When Present(payment)) 
+     When Present(debt)))
+
+Fact payment amount
+  Identified by Int
+
+Fact payment
+  Identified by payment amount * payments counter
+
+Fact payments counter
+  Identified by Int
+
+Duty duty to pay With
+  Holder taxpayer
+  Claimant inspector
+
+Act verify payments With
+  Actor inspector
+  Recipient taxpayer
+  Conditioned by
+    (Exists remaining debt : remaining debt && remaining debt <= 0)
+  Terminates
+    duty to pay()
+  Present when Present duty to pay()
+
+Act pay With
+  Actor taxpayer
+  Recipient inspector
+  Related to payment amount
+  Conditioned by
+    taxpayer &&
+    inspector &&
+    remaining debt &&
+    0 < remaining debt &&
+    payment amount <= remaining debt
+  Creates
+    payment(payments counter = Count(Foreach payment : payment Where Present(payment)))
+  Present when duty to pay() 
+
+

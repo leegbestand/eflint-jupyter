@@ -1,0 +1,29 @@
+Fact customer
+Fact seller
+Fact bill Identified by Int
+Fact receipt Identified by rid * customer * bill
+Fact rid Identified by Int
+Fact pay bill done Identified by pay bill 
+Act pay bill Actor customer Recipient seller Related to bill
+  Conditioned by bill && !pay bill done(pay bill())
+  Creates receipt(rid = Count(Foreach receipt : receipt When Holds receipt)),
+          pay bill done(pay bill())
+
+##
+
+Fact customer Identified by Alice + Bob
+Fact seller Identified by Seller
+Fact bill Identified by 1 + 2 + 3 + 4 + 5
+Fact rid Identified by 0 + 1 + 2 + 3 + 4 + 5 + 6 + 7 + 8 + 9
+
+###
+
+customer. seller. bill.
+pay bill.
+
+####
+
+!pay bill(customer = Alice, bill = 1).
+!pay bill(customer = Alice, bill = 2).
+!pay bill(customer = Alice, bill = 1).
+!pay bill(customer = Bob, bill = 3).

@@ -1,0 +1,166 @@
+// level 0
+Fact person
+
+Duty duty not to kill
+  Holder person1
+  Claimant person2
+  Present when Present person1 && Present person2
+
+// level 1
+Fact prosecutor
+  Identified by person
+Fact suspect
+  Identified by person
+Fact victim
+  Identified by person
+Fact investigator
+  Identified by person
+
+Act prosecute
+  Actor prosecutor[person=person3]
+  Recipient suspect[person=person2]
+  Related to victim[person=person1]
+  Conditioned by 
+       suspect[person=person2]
+    && victim[person=person1]
+    && duty not to kill[person1=person2, person2=person1]
+    && killed by
+  Terminates
+    suspect[person = person2],
+    victim[person = person1]
+  Present When prosecutor[person = person3]
+
+Fact killed by
+  Identified by [person1 * person2]
+
+// level 2
+Fact poisoned by
+  Identified by [person1 * person2]
+
+// level 3
+Fact alive
+  Identified by person
+
+Fact substance
+Fact food
+Fact ingredient 
+  Identified by [substance * food]
+Fact poison
+  Identified by substance
+
+Person(person) {
+
+  mix(substance,food) : Present(food) <-
+    +ingredient 
+    +mix-completed. // implicit
+
+  eat(food) : alive && Present(food) <-
+    -food.
+    +eat-completed. //implicit
+}
+
+Investigator(investigator) {
+  qualify poisoning 
+    : Present(investigator) //implicit
+      && Completed(person2.mix(poison[substance],food))
+      && Completed(person1.eat(food)) // short for Present(eat-completed[person=person1,food=food])
+      && !Present(alive[person=person1]) <- 
+    +poisoned by
+
+  qualify killing : Present(investigator) && Present(poisoned by) <-
+    +killed by.
+    +suspect[person = person2].
+    +victim[person = person1].
+}
+
+// should be generated for each plan
+Fact mix-completed
+  Identified by [person * substance * food] //note that fields should contain any unbound variables
+Fact eat-completed
+  Identified by [person * food]
+
+##
+
+Fact person
+  Identified by ["alice" + "bob" + "chloe" + "david"]
+ 
+Fact substance
+  Identified by ["salt" + "sugar" + "polonium" + "rat poison"]
+
+Fact food 
+  Identified by ["curry" + "salad"]
+
+###
+
+person. alive. food.
+poison[substance="rat poison"]. 
+poison[substance="polonium"].
+prosecutor[person="david"].
+investigator[person="chloe"].
+
+####
+
+suicide:
+  "bob".mix("polonium", "salad").
+  "bob".mix("sugar", "salad").
+  "bob".eat("salad").
+  -alive[person="bob"].
+  "chloe".qualify poisoning().
+  "chloe".qualify killing().
+  !prosecute[person3 = "david", person2 = "bob", person1 = "bob"].
+
+pos-test1:
+  "alice".mix("salt", "curry").
+  "alice".mix("rat poison", "curry").
+  "bob".mix("sugar", "curry").
+  "bob.eat("curry").
+  -alive[person="bob"].
+  "chloe".qualify poisoning.
+  "chloe".qualify killing.
+  prosecute[prosecutor="david", suspect="alice", victim="bob"].
+
+pos-test2:
+  "alice".mix("salt", "curry").
+  "alice".mix("polonium", "curry").
+  "bob".mix("sugar", "curry").
+  "bob.eat("curry").
+  -alive[person="bob"].
+  "chloe".qualify poisoning.
+  "chloe".qualify killing.
+  prosecute[prosecutor="david", suspect="alice", victim="bob"].
+
+neg-test1:
+  "alice".mix("salt", "curry").
+  "alice".mix("sugar", "curry").
+  "bob".mix("sugar", "curry").
+  "bob.eat("curry").
+  "chloe".qualify poisoning.
+  "chloe".qualify killing.
+  prosecute[prosecutor="david", suspect="alice", victim="bob"].
+
+neg-test2:
+  "alice".mix("salt", "curry").
+  "alice".mix("rat poison", "curry").
+  "bob".mix("sugar", "curry").
+  "bob.eat("curry").
+  -alive[person="bob"].
+  "chloe".qualify poisoning.
+  "chloe".qualify killing.
+  prosecute[prosecutor="david", suspect="bob", victim="bob"].
+
+neg-test3:
+  "alice".mix("salt", "curry").
+  "bob".mix("sugar", "curry").
+  "bob.eat("curry").
+  -alive[person="bob"].
+  "chloe".qualify poisoning.
+  "chloe".qualify killing.
+  prosecute[prosecutor="david", suspect="alice", victim="bob"].
+
+neg-test4:
+  "alice".mix("salt", "curry").
+  "alice".mix("rat poison", "curry").
+  "bob".mix("sugar", "curry").
+  "chloe".qualify poisoning.
+  "chloe".qualify killing.
+  prosecute[prosecutor="david", suspect="alice", victim="bob"].

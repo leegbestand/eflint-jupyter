@@ -1,0 +1,103 @@
+
+Fact taxpayer 
+
+Fact inspector 
+  Identified by "inspector" 
+
+Fact debt amount
+  Identified by Int
+
+Fact debt
+  Identified by taxpayer * debt amount
+
+Fact remaining debt
+  Identified by taxpayer * debt amount
+  Derived from 
+      (Foreach debt: 
+         remaining debt(debt.taxpayer
+                       ,debt.(debt amount) - 
+                          Sum(Foreach payment : payment.(payment amount)
+                              When payment && payment.taxpayer == debt.taxpayer))
+	 When debt)
+  
+Fact payment amount
+  Identified by Int
+
+Fact payments counter
+  Identified by Int 
+
+Fact payment
+  Identified by taxpayer * payment amount * payments counter
+
+Duty duty to pay With
+  Holder taxpayer
+  Claimant inspector
+
+Act verify payments With
+  Actor inspector
+  Recipient taxpayer
+  Conditioned by
+    remaining debt && remaining debt.(debt amount) <= 0 && remaining debt.taxpayer == taxpayer
+  Terminates
+    duty to pay(),
+    payment Where payment && payment.taxpayer == taxpayer
+  Holds when duty to pay()
+
+Act pay With
+  Actor taxpayer
+  Recipient inspector
+  Related to payment amount
+  Conditioned by 
+    taxpayer && 
+    remaining debt &&
+    remaining debt.taxpayer == taxpayer &&
+    inspector &&
+    0 < remaining debt.(debt amount) &&
+    payment amount <= remaining debt.(debt amount)
+  Creates
+    payment(payments counter = Count(Foreach payment : payment When payment))
+  Holds when duty to pay()
+
+##
+
+Fact taxpayer
+  Identified by "alice" + "bob" + "chloe"
+
+Fact debt amount 
+  Identified by 0 + 100 + 200 + 300 + 400 + 500
+
+Fact payment amount
+  Identified by 100 + 200 + 300 + 400 + 500
+
+Fact payments counter
+  Identified by 0 + 1 + 2 + 3 + 4 + 5 + 6 + 7 + 8 + 9 + 10
+
+###
+
+
+taxpayer.
+inspector.
+debt(taxpayer = "alice", debt amount = 500).
+debt(taxpayer = "bob", debt amount = 300).
+debt(taxpayer = "chloe", debt amount = 100).
+duty to pay(taxpayer = "alice", inspector = "inspector").
+duty to pay(taxpayer = "bob", inspector = "inspector").
+duty to pay(taxpayer = "chloe", inspector = "inspector").
+
+####
+
+
+!pay(taxpayer = "alice", payment amount = 200, inspector = "inspector").
+ 
+!pay(taxpayer = "chloe", payment amount = 100, inspector = "inspector").
+
+!pay(taxpayer = "alice", inspector = "inspector").
+
+!verify payments(taxpayer = "bob", inspector = "inspector").
+
+!pay(taxpayer = "alice", payment amount = 200, inspector = "inspector").
+
+!verify payments(taxpayer = "chloe", inspector = "inspector").
+
+!verify payments(taxpayer = "alice", inspector = "inspector").
+

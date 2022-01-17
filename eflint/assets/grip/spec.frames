@@ -1,0 +1,119 @@
+
+//// currently only modelling the power "to inform"
+
+/// GRIP 1
+
+Fact grip level
+  Identified by [0 + 1 + 2 + 3 + 4]
+
+Fact name
+Fact incident
+  Identified by Int 
+Fact council
+Fact region
+Fact council is in region
+  Identified by [council * region]
+
+Fact area
+  Present when Present council && area == council || Present region && area == region
+
+Fact grip level of incident
+  Identified by [incident * grip level]
+
+Fact occurrance
+  Identified by [incident * council]
+
+Fact affected
+  Identified by [incident * region] //TODO, replace with "area" (which could be province too)
+  Derived from
+    affected Where (Present occurrance && occurrance[council] == region)
+              ||   (Present occurrance && council is in region[region] == region)
+
+Fact mayor
+  Identified by [name * region]
+
+Fact fire brigade commander
+  Identified by [name * council]
+Fact regional fire brigade commander
+  Identified by [name * region]
+
+Fact police chief
+  Identified by [name * council]
+Fact regional police chief
+  Identified by [name * region]
+
+Fact director of health services
+  Identified by [name * council]
+Fact regional director of health services
+  Identified by [name * region]
+
+
+Fact commander
+  Identified by [name * council]
+  Present when 
+        Present fire brigade commander()
+     || Present director of health services()
+     || Present police chief()
+
+Fact regional commander
+  Identified by [name * region]
+  Present when 
+        Present regional fire brigade commander()
+     || Present regional director of health services()
+     || Present regional police chief()
+
+Act raise grip level to regional //TODO, update
+  Actor commander
+  Recipient mayor
+  Related to 
+    incident,
+    operational leader 
+  When operational leader[region] == mayor[region]
+    && commander[council] == incident[council]
+  Conditioned by
+    affected(region = mayor[region]) &&
+    grip level of incident(grip level = 1) &&
+    commandant
+  Creates
+    grip level of incident(grip level = 2),
+    site commandant
+  Terminates
+    grip level of incident(grip level = 1)
+  Derived from 
+    raise grip level to regional Where occurrance && commander && mayor && commandant && operational leader
+
+Fact mayor has been informed
+  Identified by [region * incident]
+
+Act inform mayor 
+  Actor commander(name=name1)
+  Recipient mayor(name=name2)
+  Related to incident
+  Conditioned by 
+    affected &&
+    grip level of incident[grip level] == 1 && 
+    !(mayor has been informed)
+  Creates
+    mayor has been informed
+  Derived from
+    inform mayor Where occurrance && commander(name=name1) && mayor(name=name2)
+
+
+/// GRIP 2
+
+Fact commandant 
+  Identified by [name * region]
+
+Fact site commandant  // "embeds" the site commando
+  Identified by [name * occurrance]
+
+Fact operational leader
+  Identified by [name * region] // "embeds" the regional operational team
+
+Act inform operational leader
+  Actor site commandant(name=name1)
+  Recipient operational leader(name=name2)
+  Conditioned by
+    affected 
+  Derived from
+    inform operational leader Where site commandant(name=name1) && operational leader(name=name2) && affected

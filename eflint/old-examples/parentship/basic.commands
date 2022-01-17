@@ -1,0 +1,8 @@
+Fact person. Placeholder parent For person. Placeholder child For person
++person(Alice). +person(Bob). +person(Chloe)
+Fact parent-of Identified by parent * child
++parent-of(Alice,Chloe). +parent-of(Bob,Chloe)
+Act call-for-help Actor child Recipient parent Holds when parent-of()
+:1
+:revert 6
+:display 

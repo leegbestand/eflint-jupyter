@@ -1,0 +1,6 @@
+Fact client
+Fact client Identified by Alice, Bob, Chloe
++client
+Invariant bob-exists : client(Bob)
+-client
+Invariant alice-exists : client(Alice)

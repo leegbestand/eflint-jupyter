@@ -1,0 +1,76 @@
+#
+Fact citizen
+Fact candidate
+Fact administrator 
+
+Fact voter
+  Identified by citizen
+
+Fact winner
+  Identified by candidate
+
+Fact vote 
+  Identified by [voter * candidate]
+
+Placeholder other candidate For candidate
+
+Duty duty to vote Holder voter Claimant administrator 
+
+Act cast vote
+  Actor voter
+  Recipient administrator
+  Related to candidate
+  Conditioned by
+    voter && !has voted()
+  Creates
+    vote()
+  Terminates
+    duty to vote()
+
+Fact has voted 
+  Identified by voter
+  Present when (Exists candidate : vote(voter,candidate))
+
+Predicate vote concluded When (Exists candidate : winner(candidate))
+Predicate voters done  When (Forall citizen : !voter() || has voted(voter()))
+
+Fact number of votes
+  Identified by Int
+  Derived from Count(Foreach vote : vote When Present(vote))
+
+Act enable vote
+  Actor administrator
+  Recipient citizen
+  Conditioned by
+       !voter()
+    && !vote concluded
+  Creates
+    voter(),
+    duty to vote(voter = voter()),
+    (Foreach candidate : cast vote(voter = voter()))
+
+Act declare winner
+  Actor administrator
+  Recipient candidate
+  Conditioned by
+      !vote concluded
+   && voters done
+   && (Forall other candidate : 
+         Count(Foreach vote : vote[voter] When vote && vote[candidate] == other candidate) < 
+         Count(Foreach vote : vote[voter] When vote && vote[candidate] == candidate)
+        When other candidate != candidate)
+  Creates
+    winner(candidate)
+##
+Fact citizen Identified by [Alice,Bob,John]
+Fact candidate Identified by [Chloe,David]
+Fact administrator Identified by Admin
+###
+administrator. citizen. candidate. enable vote(Admin,citizen). declare winner.
+####
+!enable vote(Admin, Alice).
+!enable vote(Admin, Bob).
+!enable vote(Admin, John).
+!cast vote(voter(Alice),Admin,Chloe).
+!cast vote(voter(Bob),Admin,David).
+!declare winner(Admin, David).

@@ -1,0 +1,82 @@
+==
+
+* exploring interpreter-related refactorings:
+   > introduce/find type-class for sending output
+      > different type-class instance for command-line and TCP server (IO vs JSON collector)
+   > consider moving 'derived configuration components' to outside the definitional interpreter
+      so that they are not stored in configuration graph (saving space, losing time)
+
+* v1 > make recipient clause optional for actions 
+     > change NormActor Scala class so that it does not send to holder/claimant and performer/recipient
+  v2 > derive recipients
+     > use perform, recipient, holder, claimant functions to find actors to send to
+
+* floats as new type of atoms
+
+* delete types
+
+* new duties and newly violated duties should be computed rather than collected (so that a violated duty which is immediately satisfied by next phrases is not reported if two phrases are composed)
+
+* allow multiple comma-separated domain filter constraints syntactically
+* domain filter on placeholder decls, easy to realise?
+
+* make Predicate and Invariant declarations consistent syntactically (either use `When` or `:`)
+
+* where should invariants be specified? (superseded when eFLINT becomes sequential)
+    + some might be desirable to put in the model (if they are not case-specific)
+    + also case specific ones we might want to have checked during scenario execution
+    + but we also want a step-bounded automatic exploration that considerd invariants
+    ? as part of refinement, together with event declarations?
+
+> whether the instances of a type are enumerable is a dynamic property, depending on domain constraint
+    > we simply ignore it, which is probably easier to understand and matches the idea of domain constraints as syntactic sugar
+
+Static checks:
+  * actor, (recipient,) holder and claimant must all be #Actor
+
+> (untested) extend terms with `Violated` operator, that checks whether a particular instance is an instance of a violated duty
+
+> modify JSON output to also produce array of violated invariants; checking for for invariant_violation is simply checking wether instance ( () : <INVARIANT> ) is *not* in the current state
+
+
+# require separation between outer and inner abstract syntax:
+
+(* unbound variables in Holds when clauses)
+
+* actor-type declarations, simply as fact-type declarations (without Identified by clause) with collateral effect of fact-type modifier #Actor
+
+(* enforced-by-clause sets a violation-when-clause)
+* terminated-by-clause give rise to terminates-clause
+* creating acts clause gives rise to creates-clause
+
+* change semantics of (Foreach x : _ ) so that if the domain if x is infinite, only instances of x that currently hold true are selected
+  this means that it is no longer the case that (Exists x : _) is equal to Or(Foreach x : _) and (similar for Forall). although they can be updated accordingly?
+
+
+== big refactor && replization
+
+* enable `eflint-repl` executable (compiling and running) a sequence of phrase one by one.. 
+    * in test mode (--test) only a special subset of outputs is produced
+    * with documentation on GitLab
+* add flag to `eflint-repl` that terminates the repl instance after all phrases in a file are processed (--exit flag)
+    * --exit implied by --test)
+    * with documentation  on GitLab
+* convert multi-component input of `eflint-repl` to a sequence of phrases for execution
+    with documentation on GitLab
+* both in a single file as well as across 4 files (less files not needed)
+    with documentation on GitLab
+
+* add --json-test flag (implying --test and --exit) that produces the output expected by eflint-online, as currently produced by `flint-simulation`
+    with documentation on GitLab
+
+* add `init` command to protocol of `eflint-server`, it behaves like a `skip` command (always successful) and will still produce status report (with violations etc)
+* add `kill` command to protocol of `eflint-server` that gracefully terminates the server
+* enable phrase input in `eflint-server` which executes the phrases, but without any output, the `--ignore-scenario` flag prevents the execution of non-declarative phrases 
+* convert multi-component input in `eflint-server` to a sequence of phrases sensitive to `--ignore-scenario` flag
+    with documentation on GitLab
+* add `options` command to the protocol of `eflint-server` which produces an array of enabled actions, events and disabled actions (clearly indicated as disabled)
+
+* test whether current `flint` parser is inefficient because of huge overlap between both alternatives (frames and phrases)
+    if very inefficient, consider doing the left-factoring (simpler when all frames produce phrases)
+    alternative is to force "#" at the start of file (which requires all existing files to be updated, breaking student work)
+

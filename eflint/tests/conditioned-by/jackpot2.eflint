@@ -1,0 +1,32 @@
+
+Fact player Identified by P
+Fact jackpot Identified by player
+  Holds when jackpot-conditions()
+
+Fact input Identified by Int
+
+Fact jackpot-conditions Identified by player
+
+// article 1
+Extend Fact jackpot-conditions
+  Holds when (input < 10)
+
+// article 2
+Extend Fact jackpot-conditions
+  Conditioned by (input > 5)
+.
+
+// test 1
++input(3).
+?!Holds(jackpot(P)).
+-input.
+
+// test 2
++input(6).
+?Holds(jackpot(P)).
+-input.
+
+// test 3
++input(10).
+?!Holds(jackpot(P)).
+-input.

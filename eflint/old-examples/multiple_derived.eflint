@@ -1,0 +1,18 @@
+
+Fact buyer 
+Fact seller
+
+Fact party Derived from buyer When Holds(buyer)
+                      , seller When Holds(seller)
+
+Fact taxable Identified by party
+  Holds when income > 10000 && income-of()
+           , capital > 50000 && capital-of()
+
+Fact income Identified by Int
+  Derived from income-of.income
+Fact capital Identified by Int
+  Derived from capital-of.capital
+
+Fact income-of Identified by party * income
+Fact capital-of Identified by party * capital

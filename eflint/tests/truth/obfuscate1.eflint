@@ -1,0 +1,31 @@
+
+Fact x Identified by int.
+
++x(10).
+
+?!x(9).
+?x(10).
+
+~x.
+
+?!x(9).
+?!x(10).
+
+Event wipe Related to int
+  Obfuscates x(int).
+
++x(10).
+
+?!x(9).
+?x(10).
+
+wipe(5).
+
+?!x(9).
+?x(10).
+
+wipe(10).
+
+?!x(9).
+?!x(10).
+

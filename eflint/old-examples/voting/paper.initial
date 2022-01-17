@@ -1,0 +1,5 @@
+(Foreach administrator : administrator). 
+(Foreach citizen : citizen). 
+(Foreach candidate : candidate).
+(Foreach administrator, candidate : declare winner()).
+enable vote(Admin, citizen).

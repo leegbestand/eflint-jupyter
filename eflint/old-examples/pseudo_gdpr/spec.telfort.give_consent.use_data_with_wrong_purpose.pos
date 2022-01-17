@@ -1,0 +1,3 @@
+!give consent(subject = subject(person = "bob"), purpose = "research").
+!collect consent(controller = "Telfort", purpose = "research", subject = subject(person = "bob")).
+?!Enabled(use data(controller = "Telfort", purpose = "revenue", subject = subject(person = "bob"))).

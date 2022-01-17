@@ -1,0 +1,6 @@
++access(access holder = "alice", personal data = personal data(person = "bob", datatype = "phone number")).
+//!report breaches(auditor = "Monitoring agent", controller = "Telfort", access = access(access holder = "alice", personal data = personal data (person = "bob", datatype = "phone number"))).
+!report breaches(auditor = "Monitoring agent", controller = "Telfort").
+!notify breaches(controller = "Telfort").
+//!notify breaches(controller = "Telfort", person' = "alice", person = "bob", datatype = "phone number").
+//-access(person' = "alice", person = "bob", datatype = "phone number").

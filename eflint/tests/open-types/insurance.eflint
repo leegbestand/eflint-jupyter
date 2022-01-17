@@ -1,0 +1,23 @@
+
+Fact patient
+Fact pharmacy
+Fact insurer
+Fact medicine 
+
+// represents whether the receipt exists / has been given out by the pharmacy
+Open Fact receipt Identified by pharmacy * patient * medicine
+
+Duty duty-to-reimburse Holder insurer Claimant patient
+  Related to receipt
+
+Act request-reimbursement Actor patient Recipient insurer
+  Related to receipt
+  Creates duty-to-reimburse()
+  Conditioned by receipt
+  Holds when True 
+
+Act reimburse Actor insurer Recipient patient
+  Related to receipt
+  Terminates duty-to-reimburse()
+  Holds when duty-to-reimburse()
+  Conditioned by receipt

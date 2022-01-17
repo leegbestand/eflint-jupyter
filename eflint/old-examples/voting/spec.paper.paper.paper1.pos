@@ -1,0 +1,16 @@
+!enable vote(citizen = John).
+!enable vote(citizen = Frank).
+!enable vote(citizen = Peter).
+!cast vote(citizen = John, candidate = Mary).
+!cast vote(citizen = Frank, candidate = Mary).
+!cast vote(citizen = Peter, candidate = David).
+!declare winner().
+!?winner(David).
+-winner(Mary).
+!enable vote(citizen = Chloe).
+!enable vote(citizen = Hannah).
+!cast vote(citizen = Chloe, candidate = David).
+!cast vote(citizen = Hannah, candidate = David).
+!declare winner().
+!?winner(Mary).
+?winner(David).

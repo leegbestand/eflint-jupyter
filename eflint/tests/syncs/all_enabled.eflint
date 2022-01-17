@@ -1,0 +1,20 @@
+
+Fact x Identified by Int
+
+Act sub
+  Syncs with sup(actor, x)
+  Holds when True
+
+Act sup Related to int
+  Conditioned by int % 2 == 0
+  Holds when True
+.
+
++x(2).
++x(4).
+
+?Enabled(sub(A)).
+
++x(5).
+
+?!Enabled(sub(A)).

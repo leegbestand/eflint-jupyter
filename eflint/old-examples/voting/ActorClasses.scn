@@ -1,0 +1,24 @@
+
+#import examples/voting/spec.frames
+
+ActorClass citizen {
+  __init(administrator): {}
+
+  __observe(actor): {
+    optional { actor.self == self.
+               Holds(actor.Completed(submit ballot(candidate))). // candidate implicitly bound at block start
+               cast vote(self, administrator, candidate).
+             }.// if citizen observes them submitting a ballot with candidate C on it
+               // this is then qualified as `cast vote(self, admin, C)`
+  }
+
+  submit ballot(candidate): {
+    !(Exists candidate' : Completed(self.submit ballot(candidate'))). // fails if already submitted a ballot
+    // if does not fail, then add fact that ensures completion
+    // this line can be omitted to make (local) non-compliance possible
+  }
+}
+
+ActorClass administrator {
+  
+}

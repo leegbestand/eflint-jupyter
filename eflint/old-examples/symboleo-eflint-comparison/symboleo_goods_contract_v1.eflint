@@ -1,0 +1,109 @@
+#
+
+Fact seller 
+Fact address
+Fact return-address Identified by seller * address
+
+Fact buyer
+Fact delivery-address Identified by buyer * address
+
+Invariant buyer-seller: buyer != seller
+
+Fact currency Identified by CAD, USD, EUR
+Fact quality  Identified by PRIME, AAA, AA, A
+Fact quantity Identified by Int
+
+Fact meat-id
+Fact meat    Identified by meat-id * quantity * quality
+Fact goods   Identified by meat
+
+Fact delivered    Identified by meat * address 
+Fact delivery-due Identified by meat * address
+
+Fact amount       Identified by Int
+Fact sum          Identified by amount * currency
+Fact normal-sum   Identified by sum
+Fact late-sum     Identified by sum
+Fact from
+Fact to
+Fact paid         Identified by sum * from * to
+Fact payment-due  Identified by sum * from * to
+
+Duty [O1] 
+  Holder seller
+  Claimant buyer
+  Violated when Not(delivered(meat=goods.meat)) 
+             && delivery-due(meat=goods.meat) 
+             && delivery-address() 
+             && Not(suspended([O1]()))
+Fact suspended Identified by [O1]
+
+Duty [O2]
+  Holder buyer
+  Claimant seller
+  Violated when Not(paid(sum=normal-sum.sum, from=buyer, to=seller)) 
+             && payment-due(sum=normal-sum.sum, from=buyer, to=seller)
+
+Duty [O3]
+  Holder buyer
+  Claimant seller
+  Holds when Violated([O2]())
+  //Violated when Not(paid(sum=late-sum.sum, from=buyer, to=seller))
+
+Act [P1]
+  Actor seller
+  Recipient buyer
+  //Conditioned by True
+  Creates suspended([O1]())
+  Holds when Violated([O2]())
+
+Act [P2]
+  Actor buyer
+  Recipient seller
+  //Conditioned by True
+  Terminates suspended([O1]())
+  Holds when suspended([O1]()) 
+          && paid(sum=late-sum.sum, from=buyer, to=seller)
+
+Act [P3]
+  Actor buyer
+  Recipient seller
+  Related to meat
+  Creates terminated
+  Holds when Not(delivered()) && delivery-overdue() && delivery-address()
+
+Fact terminated Identified by Terminated
+Fact delivery-overdue Identified by meat * address 
+
+##
+
+// instantiate contract part 1
+Fact seller  Identified by "Seller"
+Fact buyer   Identified by "Buyer"
+
+// bind domain
+Fact address Identified by "Home", "Warehouse", "Harbour"
+
+
+###
+
+// instantiate contract part 2
+return-address("Seller", "Warehouse").
+delivery-address("Buyer", "Home").
+
+normal-sum(sum(50,CAD)).
+late-sum(sum(60, CAD)).
+goods(meat("Beef", 10, AAA)).
+
+[O1]().
+[O2]().
+
+####
+
++payment-due(normal-sum.sum, "Buyer", "Seller").
+[P1]().
++delivery-due(goods.meat, "Home").
++paid(late-sum.sum, "Buyer", "Seller").
+[P2]().
++delivered(goods.meat, "Harbour").
++delivered(goods.meat, "Home").

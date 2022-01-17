@@ -1,0 +1,24 @@
+
+#
+
+Fact switcher Identified by "switcher"
+
+External condition
+
+Fact state Identified by ["on", "off"]
+
+Physical switch
+  Actor switcher 
+  Related to state
+  Conditioned by state && condition
+  Creates (Foreach state': state' When state != state')
+  Terminates state
+
+##
+
+###
+
+switcher.
+state("off").
+
+####

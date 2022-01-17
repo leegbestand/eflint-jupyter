@@ -1,0 +1,7 @@
+
+alien.
+
+minister When minister == "knapen".
+
+apply for permit(minister = "knapen").
+grant permit.

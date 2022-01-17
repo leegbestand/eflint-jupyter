@@ -1,0 +1,5 @@
+
+-grip level of incident[incident = 0, grip level = 1].
++grip level of incident[incident = 0, grip level = 2].
+!inform mayor[name = "Bruins"].
+

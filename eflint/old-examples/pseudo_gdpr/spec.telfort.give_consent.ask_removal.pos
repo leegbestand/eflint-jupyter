@@ -1,0 +1,6 @@
+!give consent(subject = subject (person = "bob"), purpose = "research").
+!collect consent(controller = "Telfort", purpose = "research", subject = subject(person = "bob")).
+!store data(controller = "Telfort", personal data = personal data(datatype = "phone number"), subject = subject(person = "bob")).
+!ask removal(subject = subject(person = "bob"), datatype = "phone number").
+!remove data(controller = "Telfort", personal data = personal data(datatype = "phone number"), subject = subject(person = "bob")).
+!remove data duty().

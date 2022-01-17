@@ -1,0 +1,9 @@
+!mix(Alice, Salt, Curry).
+!mix(Alice, RatPoison, Curry).
+!mix(Bob, Sugar, Curry).
+!eat(Bob, Curry).
+-alive(Bob).
+!qualify poisoning(Chloe, Alice, Bob).
+!qualify killing(Chloe,Alice, Bob ).
+!prosecute(David,Alice, Bob).
+

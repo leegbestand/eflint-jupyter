@@ -1,0 +1,65 @@
+Fact citizen
+Fact candidate
+Fact administrator 
+
+Fact voter
+  Identified by citizen
+
+Fact winner
+  Identified by candidate
+
+Fact vote 
+  Identified by citizen * candidate
+
+Placeholder other candidate For candidate
+
+Duty duty to vote Holder citizen Claimant administrator 
+
+Act cast vote
+  Actor citizen
+  Recipient administrator
+  Related to candidate
+  Conditioned by
+    voter() && !has voted()
+  Creates
+    vote()
+  Terminates
+    duty to vote()
+
+Fact has voted 
+  Identified by citizen
+  Holds when (Exists candidate : vote(citizen,candidate))
+
+Predicate vote concluded When (Exists candidate : winner(candidate))
+Predicate voters done  When (Forall citizen : !voter() || has voted())
+Predicate no votes on self 
+ When (Forall citizen : !(Exists candidate : vote(citizen,candidate)
+                            When candidate == citizen))
+
+Fact number of votes
+  Identified by Int
+  Derived from Count(Foreach vote : vote When Holds(vote))
+
+Act enable vote
+  Actor administrator
+  Recipient citizen
+  Conditioned by
+       !voter()
+    && !vote concluded()
+  Creates
+    voter(),
+    duty to vote(),
+    (Foreach candidate : cast vote())
+
+Act declare winner
+  Actor administrator
+  Recipient candidate
+  Conditioned by
+      !vote concluded()
+   && voters done()
+   && (Forall other candidate : 
+         Count(Foreach vote : vote When vote && vote.candidate == other candidate) < 
+         Count(Foreach vote : vote When vote && vote.candidate == candidate)
+        When other candidate != candidate)
+  Creates
+    winner(candidate)

@@ -1,0 +1,8 @@
+!mix(person = "bob", substance = "polonium", food = "salad").
+!mix(person = "bob", substance = "sugar", food = "salad").
+!eat(person = "bob", food = "salad").
+-alive(person = "bob").
+!qualify poisoning(investigator = "chloe", suspect = "bob", victim = "bob").
+!qualify killing(investigator = "chloe", suspect = "bob", victim = "bob").
+!prosecute(prosecutor = "david", suspect = "bob", victim = "bob").
+

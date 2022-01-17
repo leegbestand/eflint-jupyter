@@ -1,0 +1,117 @@
+<?xml version="1.0"?>
+<!DOCTYPE flint SYSTEM "../assets/schema.dtd">
+<flint>
+  <specification>
+    <ifact-frame id="minister">
+      <type-expr>["knapen" + "timmermans" + "benschop" + "patijn"]</type-expr>
+    </ifact-frame>
+    <iact-frame id="grant passport">
+      <actor><ifact-ref><type>minister</type></ifact-ref></actor>
+      <subject><ifact-ref><type>immigrant</type></ifact-ref></subject>
+      <ifact-ref><type>passport</type></ifact-ref>
+      <value-expr>true</value-expr>
+      <iterminates>
+        <type>application</type>
+        <type>duty to consider</type>
+      </iterminates>
+      <icreates>
+        <type>passport</type>
+      </icreates>
+    </iact-frame>
+    <iact-frame id="deny application">
+      <actor><ifact-ref><type>minister</type></ifact-ref></actor>
+      <subject><ifact-ref><type>immigrant</type></ifact-ref></subject>
+      <ifact-ref><type>application</type></ifact-ref>
+      <value-expr>true</value-expr>
+      <iterminates>
+        <type>application</type>
+        <type>duty to consider</type>
+      </iterminates>
+    </iact-frame>
+    <iduty-frame id="duty to consider">
+      <holder><ifact-ref><type>minister</type></ifact-ref></holder>
+      <claimant><ifact-ref><type>immigrant</type></ifact-ref></claimant>
+      <ifact-ref><type>application</type></ifact-ref>
+      <terminating_acts>
+        <iact-type>grant passport</iact-type>
+        <iact-type>deny application</iact-type>
+      </terminating_acts>
+    </iduty-frame>
+
+    <ifact-frame id="immigrant">
+      <type-expr>["alice" + "bob" + "chloe" + "dharma" + "ellis"]</type-expr>
+    </ifact-frame>
+    <iact-frame id="apply for passport">
+      <actor><ifact-ref><type>immigrant</type></ifact-ref></actor>
+      <subject><ifact-ref><type>minister</type></ifact-ref></subject>
+      <ifact-ref><type>application</type></ifact-ref>
+      <value-expr>true</value-expr>
+      <icreates>
+        <type>application</type>
+        <type>duty to consider</type>
+      </icreates>
+    </iact-frame>
+
+    <ifact-frame id="passport">
+      <type-expr>[immigrant]</type-expr>
+    </ifact-frame>
+    <ifact-frame id="application">
+      <type-expr>[immigrant]</type-expr>
+    </ifact-frame>
+  </specification>
+
+  <initials>
+    <decomposition>
+      <type>immigrant</type>
+      <binding>
+        <type>immigrant</type>
+        <element><string>bob</string></element>
+      </binding>
+    </decomposition>
+    <decomposition>
+      <type>immigrant</type>
+      <binding>
+        <type>immigrant</type>
+        <element><string>alice</string></element>
+        </binding>
+    </decomposition>
+    <decomposition>
+      <type>minister</type>
+      <binding>
+        <type>minister</type>
+        <element><string>knapen</string></element>
+      </binding>
+    </decomposition>
+    <decomposition>
+      <type>apply for passport</type>
+      <binding>
+        <type>minister</type>
+        <element><string>knapen</string></element>
+      </binding>
+    </decomposition>
+  </initials>
+
+ <scenario>
+    <step>
+      <decomposition>
+        <type>apply for passport</type>
+        <binding>
+          <type>immigrant</type>
+          <element><string>alice</string></element>
+        </binding>
+      </decomposition>
+      <decomposition>
+        <type>apply for passport</type>
+        <binding>
+          <type>immigrant</type>
+          <element><string>bob</string></element>
+        </binding>
+      </decomposition>
+    </step>
+    <step>
+      <decomposition>
+        <type>grant passport</type>
+      </decomposition>
+    </step>
+ </scenario> 
+</flint> 

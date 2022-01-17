@@ -1,0 +1,6 @@
+
+
+Fact even Identified by Int
+  Holds when even % 2 == 0.
+
+?even(64).

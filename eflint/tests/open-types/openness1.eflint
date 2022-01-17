@@ -1,0 +1,22 @@
+
+Open Fact x Identified by int.
+
+?x(5).
+
++x(5).
+?x(5).
+
+-x(5).
+?!x(5).
+
+~x(5).
+?x(5).
+
++x(5).
+?x(5).
+
+Event wipe Related to int
+  Obfuscates x(int).
+
+wipe(5).
+?x(5).

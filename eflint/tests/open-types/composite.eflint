@@ -1,0 +1,20 @@
+
+Fact a 
+Fact b
+Fact c
+
+Open Fact composite Identified by a * b * c.
+
+?composite(A,B,C).
+
+Event opt_create Related to composite
+  Creates composite When Holds(composite).
+
+opt_create(composite(A,B,C)).
+
+Fact wrapped Identified by composite
+
+Event wrap Related to composite
+  Creates wrapped() When composite.
+
+wrap(composite(A,B,C)).

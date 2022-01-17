@@ -1,0 +1,8 @@
+!pay(taxpayer = "alice", payment amount = 200, inspector = "inspector").
+ 
+!pay(taxpayer = "chloe", payment amount = 100, inspector = "inspector").
+
+!pay(taxpayer = "alice", payment amount = 100, inspector = "inspector").
+
+?!Enabled(verify payments(taxpayer = "bob", inspector = "inspector")).
+

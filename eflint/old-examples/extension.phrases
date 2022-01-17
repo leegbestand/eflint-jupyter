@@ -1,0 +1,27 @@
+Fact employee
++employee(Alice)
+Fact client
++client(Sanchez)
+Fact risk Identified by 0,1,2
+Fact risk-of Identified by risk * client
+Act assign-risk Actor employee Recipient client Related to risk Creates risk-of
+Extend Act assign-risk Holds when employee && client //when is assign-risk available?
+Fact country
++country(Afghanistan)
++country(Chili)
+Fact country-risk Identified by country * risk
++country-risk(Afghanistan,2)
++country-risk(Chili,0) 
+Fact country-of Identified by country * client
++country-of(Afghanistan, Sanchez)
+Extend Act assign-risk Conditioned by country-of(country=country) && country-risk(risk=risk') && risk >= risk' // when is assign-risk enabled?
+Fact sib
++sib(Chemical)
++sib(Gambling)
+Fact sib-risk Identified by sib * risk
++sib-risk(Chemical,1)
++sib-risk(Gambling,2)
+Fact sib-of Identified by sib * client
++sib-of(Chemical, Sanchez)
+Extend Act assign-risk Conditioned by sib-of(sib=sib) && sib-risk(risk=risk') && risk >= risk' // additional condition
+-country-of(Afghanistan,Sanchez). +country-of(Chili,Sanchez)

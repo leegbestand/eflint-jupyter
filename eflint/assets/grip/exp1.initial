@@ -1,0 +1,18 @@
+
+council. 
+region. 
+council is in region[council = "amsterdam oost", region = "amsterdam"].
+council is in region[council = "diemen", region = "amsterdam"].
+council is in region[council = "utrecht", region = "utrecht"].
+
+police chief[name = "Bruins", council = "diemen"].
+director of health services[name = "De Boer", council = "diemen"]. 
+fire brigade commander[name = "Jansma", council = "diemen"].
+mayor[name = "Halsema", region = "amsterdam"].
+//commandant[region = "utrecht", name = "Dijkstra"].
+commandant[region = "amsterdam", name = "De Jong"].
+//commandant[region = "amsterdam", name = "Hendriks"].
+operational leader[region = "amsterdam", name = "Sneijder"].
+
+occurrance[incident = 0, council = "diemen"].
+grip level of incident[incident = 0, grip level = 1].

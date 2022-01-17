@@ -1,0 +1,4 @@
+Fact person.
++person(Alice).
+-perrrson(Alice).
++person(Bob).

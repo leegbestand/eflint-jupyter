@@ -1,0 +1,12 @@
+
+Open Fact x Identified by Int
+
+Fact y Identified by 1..10
+  Holds when x(y).
+
+?y(5). // should ask for x(5)
+
+Fact z Identified by y
+  Holds when y.
+
+?z(y(5)). // should also ask for x(5) (nothing more nothing less)

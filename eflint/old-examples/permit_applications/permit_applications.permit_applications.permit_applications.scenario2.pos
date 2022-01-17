@@ -1,0 +1,6 @@
+
+!apply for permit(alien = "alice").
+
+?!Enabled(deny application(alien = "bob")).
+
+

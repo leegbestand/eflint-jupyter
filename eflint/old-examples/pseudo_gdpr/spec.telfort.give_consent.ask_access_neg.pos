@@ -1,0 +1,3 @@
+!store data(controller = "Telfort", personal data = personal data(person = "bob", datatype = "phone number"), subject = subject(person = "bob")).
+!ask access(subject = subject(person = "bob"), personal data = personal data(person = "bob", datatype = "phone number")).
+?!Enabled(enable access(controller = "Telfort", personal data = personal data(person = "alice", datatype = "phone number"), subject = subject(person = "alice"))).

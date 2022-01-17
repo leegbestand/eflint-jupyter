@@ -1,0 +1,10 @@
+
+!apply for permit(alien = "alice").
+
+!deny application(alien = "alice").
+
+!apply for permit(alien = "bob").
+
+!grant permit(alien = "bob").
+
+!grant permit(alien = "alice").

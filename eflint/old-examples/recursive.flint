@@ -1,0 +1,12 @@
+
+Fact number
+  Identified by Int
+  Derived from number When number == 0 || (Exists number' : Present number' && number == number' + 1)
+
+##
+
+Fact number Identified by 0..40
+
+###
+
+

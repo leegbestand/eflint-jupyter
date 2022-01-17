@@ -1,0 +1,3 @@
++access(access holder = "alice", personal data = personal data(person = "bob", datatype = "phone number")).
+!notify breaches(controller = "Telfort", subject = subject(person = "bob")).
+//-access(access holder = "alice", person = "bob", datatype = "phone number").

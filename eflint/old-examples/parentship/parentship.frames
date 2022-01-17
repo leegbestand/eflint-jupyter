@@ -1,0 +1,24 @@
+Fact person
+
+Placeholder parent For person
+Placeholder child  For person
+
+Fact natural parent
+  Identified by parent * child
+
+Fact adoptive parent
+  Identified by parent * child
+
+Fact legal parent
+  Identified by parent * child
+  Present when adoptive parent() || natural parent()
+
+Act reward child With
+  Actor parent
+  Recipient child
+  Conditioned by legal parent()
+  
+Act call for help With
+  Actor child
+  Recipient parent
+  Conditioned by legal parent()

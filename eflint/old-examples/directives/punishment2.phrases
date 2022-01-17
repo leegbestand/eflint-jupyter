@@ -1,0 +1,18 @@
+// If X has not done A in context C, Y has to have enforced P on X
+Fact x Identified by X
+Fact z Identified by Z 
+Fact c Identified by C
+Duty duty-a Holder x Claimant z Violated when c
+Fact p Identified by x // x can be punished with P 
+Fact y Identified by Y
+Duty duty-enforce Holder y Claimant z Related to x Violated when Violated(duty-a())
+Act enforce Actor y Recipient x Conditioned by Violated(duty-a()) Terminates duty-enforce() Creates p(x)
++enforce    // permission
+Act a Actor x Recipient z Terminates duty-a()
++a          // permission
++duty-a()   // now duty 
++duty-enforce()  // create enforce duty 
+//a           // perform a
++c          // violation if line above is not executed
+enforce
+?p          // query: punished?

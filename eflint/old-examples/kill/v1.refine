@@ -1,0 +1,10 @@
+Fact person
+  Identified by "alice" + "bob" + "chloe" + "david"
+ 
+Fact substance
+  Identified by "salt" + "sugar" + "polonium" + "rat poison"
+
+Fact food 
+  Identified by "curry" + "salad"
+
+

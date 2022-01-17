@@ -1,0 +1,12 @@
+Extend Fact int Holds when int % 2 == 0.
+
+?int(4).
+?!int(5).
+
+Extend Fact int Conditioned by int > 0.
+
+?!Enabled(int(0)).
+?!Enabled(int(1)).
+?Enabled(int(2)).
+?!Enabled(int(3)).
+?Enabled(int(4)).

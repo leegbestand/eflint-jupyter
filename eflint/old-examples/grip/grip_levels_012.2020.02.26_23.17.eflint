@@ -1,0 +1,181 @@
+#
+Fact incident
+Fact level 
+  Identified by 0 + 1 + 2 + 3 + 4 + 5
+Fact grip-level-of-incident 
+  Identified by incident * level
+
+Fact municipality
+Fact region
+Fact province
+
+Fact region-of
+  Identified by municipality * region
+
+Fact province-of
+  Identified by municipality * province
+
+Fact provinces-of-region
+  Identified by region * province
+  Holds When region-of(municipality, region) && province-of(municipality, province)
+
+Fact affects
+  Identified by incident * municipality
+
+Fact mayor 
+Fact mayor-of
+  Identified by mayor * municipality
+
+Fact commander
+Fact commander-of
+  Identified by commander * municipality
+  Holds When fire-brigade-commander-of() ||
+             police-chief-of() ||
+             health-service-director-of()
+
+Fact fire-brigade-commander-of
+  Identified by commander * municipality
+
+Fact police-chief-of
+  Identified by commander * municipality
+
+Fact health-service-director-of
+  Identified by commander * municipality
+
+// GRIP 1
+
+Fact off-site-coordination-required  Identified by incident
+Fact no-coordination-required        Identified by incident
+
+Duty need-to-assess-level-one-incident
+  Holder commander
+  Claimant mayor 
+  Related to incident
+  Holds When grip-level-of-incident(incident, 1) 
+          && affects(incident, municipality)
+          && mayor-of(mayor, municipality) 
+          && commander-of(commander, municipality)
+             
+
+Act raise-grip-level-to-two
+  Actor commander
+  Recipient mayor
+  Related to incident
+  Conditioned by
+    off-site-coordination-required(incident)
+  Creates
+    grip-level-of-incident(incident, 2)
+  Terminates
+    grip-level-of-incident(incident, 1), 
+    need-to-assess-level-one-incident(commander = commander')
+  Holds When
+    need-to-assess-level-one-incident()
+
+Act reduce-grip-level-to-zero
+  Actor commander
+  Recipient mayor
+  Related to incident
+  Conditioned by
+    no-coordination-required(incident)
+  Terminates
+    grip-level-of-incident(incident, 1)
+  Holds When
+    need-to-assess-level-one-incident(commander = commander')
+
+/// GRIP 2
+
+Fact operational-leader Identified by commander * incident
+
+Fact high-command Identified by mayor * incident // in Dutch: opperbevel
+
+Duty duty-to-inform-council
+  Holder mayor
+  Claimant municipality
+  Related to incident
+
+Act assume-high-command
+  Actor mayor
+  Recipient municipality
+  Related to incident
+  Conditioned by 
+    grip-level-of-incident(incident, level) When 2 <= level
+  Creates 
+    high-command(mayor, incident),
+    operational-leader(commander, incident) When fire-brigade-commander-of(commander, municipality),
+    duty-to-inform-council(mayor, municipality, incident)
+  Holds When
+    affects(incident, municipality) &&
+    mayor-of(mayor, municipality)
+
+Act inform-council
+  Actor mayor
+  Recipient municipality
+  Related to incident
+  Conditioned by 
+    high-command(mayor, incident)
+  Terminates
+    duty-to-inform-council()
+  Holds When
+    mayor-of(mayor, municipality) && affects(incident, municipality)
+
+Duty duty-to-relinquish-high-command
+  Holder mayor
+  Claimant municipality
+  Related to incident
+  Holds When high-command(mayor, incident) && mayor-of(mayor, municipality)
+
+Act relinquish-high-command
+  Actor mayor
+  Recipient municipality
+  Related to incident
+  Terminates high-command()
+  Holds When high-command()
+
+Act demand-control-of-incident
+  Actor municipality
+  Recipient mayor 
+  Related to incident
+  Conditioned by
+    (Forall level : !grip-level-of-incident(incident, level)) // incident has been "resolved"
+  Terminates
+    high-command(mayor, incident)
+  Holds When duty-to-relinquish-high-command()
+
+Act demand-information-about-incident
+  Actor municipality
+  Recipient mayor
+  Related to incident
+  Conditioned by
+    !high-command(mayor, incident) && // mayor no longer has high-command
+    !grip-level-of-incident(incident, level) // incident has been "resolved"
+  Holds When
+    duty-to-inform-council()
+
+##
+
+Fact commander     Identified by Frank + Dirk + Petra
+Fact mayor         Identified by Mary + Mandy
+Fact municipality  Identified by Amstelveen + Amsterdam
+Fact region        Identified by Amsterdam
+Fact province      Identified by NoordHolland
+Fact incident      Identified by Fire
+
+###
+
+affects(Fire, Amstelveen).
+grip-level-of-incident(Fire, 1).
+
+mayor-of(Mary, Amsterdam).
+mayor-of(Mandy, Amstelveen).
+fire-brigade-commander-of(Frank, Amstelveen).
+health-service-director-of(Dirk, Amstelveen).
+police-chief-of(Petra, Amstelveen).
+
+####
+
++off-site-coordination-required(Fire).
+!raise-grip-level-to-two(Dirk, Mandy, Fire).
+!assume-high-command(Mandy, Amstelveen, Fire).
+!relinquish-high-command(Mandy, Amstelveen, Fire).
+-grip-level-of-incident(Fire, 2).
+!demand-information-about-incident(Amstelveen, Mandy, Fire).

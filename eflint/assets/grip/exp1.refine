@@ -1,0 +1,18 @@
+
+Fact council 
+  Identified by ["amsterdam oost" + "diemen" + "utrecht"]
+
+Fact region
+  Identified by ["amsterdam" + "utrecht"]
+
+Fact area 
+  Identified by ["amsterdam" + "utrecht" + "amsterdam oost" + "diemen" + "utrecht"]
+
+Fact name
+  Identified by [ "Halsema"                            //mayors
+                + "Bruins"                             //police chiefs
+                + "De Boer"                            //director of health services
+                + "Jansma"                             //fire brigade commander
+                + "De Jong" //+ "Dijkstra" + "Hendriks"  //commandants
+                + "Sneijder"                           //operational leaders
+                ]

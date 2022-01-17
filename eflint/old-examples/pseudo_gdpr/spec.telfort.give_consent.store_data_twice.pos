@@ -1,0 +1,3 @@
+
+!store data(subject = subject(person="alice"), personal data = personal data(person = "alice", datatype="address")).
+!store data(subject = subject(person="alice"), personal data = personal data(person = "alice",datatype="address")).

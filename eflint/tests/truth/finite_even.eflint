@@ -1,0 +1,4 @@
+Fact number Identified by 1..20.
+Fact even Identified by number Derived from even(number) When (number % 2 == 0).
+?even(4).
+?!even(5).

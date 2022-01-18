@@ -21,7 +21,7 @@ type Runtime = StateT Config IO
 
 languageConfig :: LanguageInfo
 languageConfig = LanguageInfo
-  { languageName = "funcalc"
+  { languageName = "eFLINT"
   , languageVersion = "1.0.0"
   , languageFileExtension = ".txt"
   , languageCodeMirrorMode = "null"
@@ -88,7 +88,7 @@ displayOut = map displayOut'
         displayOut' (QueryRes QuerySuccess) = "Query success"
         displayOut' (QueryRes QueryFailure) = "Query failed"
         displayOut' (Violation v) = displayViolation v
-        displayOut' _ = ""
+        displayOut' m = show m
 
 displayStrings :: [String] -> [DisplayData]
 displayStrings = displayString . unlines
@@ -106,9 +106,10 @@ languageRun code init intermediate = do
   case p of
     Left err   -> return ([ErrorVal (CompilationError err)], IHaskell.IPython.Types.Ok, "")
     Right expr -> get >>= \c0 -> case defInterpreter (emptyInput, (collapsePrograms . convertPrograms $ expr)) c0 of
-        (Just c, out) -> put c >> liftIO (intermediate (displayFactChanges (cfg_state c0) (cfg_state c)))
-          >> return (out, IHaskell.IPython.Types.Ok, "")
-        (Nothing, out) ->  return (out , IHaskell.IPython.Types.Ok, "")
+        (Just c, out) -> put c >> case displayFactChanges (cfg_state c0) (cfg_state c) of
+           [] -> return (out, IHaskell.IPython.Types.Ok, "")
+           s  -> liftIO (intermediate s) >> return (out, IHaskell.IPython.Types.Ok, "")
+        (Nothing, out) -> lift (print $ displayOut out) >> return (out, IHaskell.IPython.Types.Ok, "")
 
 
 convertPrograms :: [Phrase] -> [Program]

@@ -73,10 +73,8 @@ displayFactChanges prev cur = unlines .  concat $
 
 
 displayError :: Error -> String
-displayError (RuntimeError te)    = "Runtime error"
-displayError NonDeterministicTransition = "non-deterministic transition attempt"
-displayError (CompilationError err)     = err
-displayError (NotTriggerable err)     = "Non trigger"
+displayError (CompilationError err) = err
+displayError err = print_error err
 
 
 

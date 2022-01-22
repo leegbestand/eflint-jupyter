@@ -1,3 +1,6 @@
+cabal.project.local
+flint-simulation*/
+dist-newstyle/
 .stack-work/
 *~
 .ipynb_checkpoints/

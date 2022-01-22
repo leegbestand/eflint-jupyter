@@ -86,7 +86,7 @@ displayOut = map displayOut'
         displayOut' (QueryRes QuerySuccess) = "Query success"
         displayOut' (QueryRes QueryFailure) = "Query failed"
         displayOut' (Violation v) = displayViolation v
-        displayOut' m = show m
+        displayOut' (ExecutedTransition info) = ppTagged (trans_tagged info)
 
 displayStrings :: [String] -> [DisplayData]
 displayStrings = displayString . unlines

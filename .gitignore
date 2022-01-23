@@ -4,4 +4,4 @@ dist-newstyle/
 .stack-work/
 *~
 .ipynb_checkpoints/
-*.ipynb
+./*.ipynb

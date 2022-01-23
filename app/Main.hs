@@ -57,9 +57,9 @@ displayString :: String -> [DisplayData]
 displayString str = [DisplayData PlainText (T.pack str)]
 
 displayViolation :: Violation -> String
-displayViolation (DutyViolation te)       = "violated duty!: " ++ ppTagged te
-displayViolation (InvariantViolation d)   = "violated invariant!: " ++ d
-displayViolation (TriggerViolation tinfo) = "disabled " ++  trans_type ++ ": " ++ ppTagged (trans_tagged tinfo)
+displayViolation (DutyViolation te)       = "Violated duty!: " ++ ppTagged te
+displayViolation (InvariantViolation d)   = "Violated invariant!: " ++ d
+displayViolation (TriggerViolation tinfo) = "Disabled " ++  trans_type ++ ": " ++ ppTagged (trans_tagged tinfo)
   where trans_type = if trans_is_action tinfo then "action" else "event"
 
 displayFactChanges :: State.State -> State.State -> String
@@ -86,7 +86,7 @@ displayOut = map displayOut'
         displayOut' (QueryRes QuerySuccess) = "Query success"
         displayOut' (QueryRes QueryFailure) = "Query failed"
         displayOut' (Violation v) = displayViolation v
-        displayOut' (ExecutedTransition info) = ppTagged (trans_tagged info)
+        displayOut' (ExecutedTransition info) = "Executed transition: " ++ ppTagged (trans_tagged info)
 
 displayStrings :: [String] -> [DisplayData]
 displayStrings = displayString . unlines

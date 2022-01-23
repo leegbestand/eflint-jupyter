@@ -7,12 +7,12 @@ import System.Environment (getArgs)
 import IHaskell.IPython.EasyKernel (easyKernel, installKernelspec, KernelConfig(..))
 import IHaskell.IPython.Types
 import Control.Monad.State
-import Interpreter (Config(..), initialConfig, Output(..), Program(..), collapse_programs, convert_programs)
-import Parse
-import NewExplorer (defInterpreter, Instruction (Display))
-import State
-import Spec (Phrase, ppTagged)
-import Print
+import Language.EFLINT.Interpreter (Config(..), initialConfig, Output(..), Program(..), collapse_programs, convert_programs)
+import Language.EFLINT.Parse
+import Language.EFLINT.Explorer (defInterpreter, Instruction (Display))
+import Language.EFLINT.State
+import Language.EFLINT.Spec (Phrase, ppTagged)
+import Language.EFLINT.Print
 import qualified Data.Map as M
 import qualified Data.Set as S
 import Data.List
@@ -62,7 +62,7 @@ displayViolation (InvariantViolation d)   = "Violated invariant!: " ++ d
 displayViolation (TriggerViolation tinfo) = "Disabled " ++  trans_type ++ ": " ++ ppTagged (trans_tagged tinfo)
   where trans_type = if trans_is_action tinfo then "action" else "event"
 
-displayFactChanges :: State.State -> State.State -> String
+displayFactChanges :: Language.EFLINT.State.State -> Language.EFLINT.State.State -> String
 displayFactChanges prev cur = unlines .  concat $
   [ display_facts "~" (S.toList (M.keysSet (contents prev) `S.difference` M.keysSet (contents cur)))
   , display_facts "-" (state_not_holds cur \\ state_not_holds prev)

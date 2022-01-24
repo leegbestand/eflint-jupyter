@@ -35,7 +35,7 @@ executable eflint-jupyter
     , base
     , bytestring
     , containers
-    , eflint >= 3.0.0.1 
+    , eflint >= 3.0.0.2 
     , ipython-kernel
     , mtl
     , parsec
@@ -56,7 +56,7 @@ test-suite eflint-jupyter-test
     , bytestring
     , containers
     , eflint-jupyter
-    , eflint >= 3.0.0.1 
+    , eflint >= 3.0.0.2 
     , ipython-kernel
     , mtl
     , parsec

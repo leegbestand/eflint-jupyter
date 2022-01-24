@@ -86,8 +86,7 @@ displayOut = map displayOut'
         displayOut' (QueryRes QuerySuccess) = "Query success"
         displayOut' (QueryRes QueryFailure) = "Query failed"
         displayOut' (Violation v) = displayViolation v
-        displayOut' (ExecutedTransition info) = unlines $ map (("Executed transition: " ++) . ppTagged . trans_tagged) (allInfos info)
-          where allInfos info = info : concatMap allInfos (trans_syncs info)
+        displayOut' (ExecutedTransition info) = unlines $ map (("Executed transition: " ++) . ppTagged . trans_tagged) (trans_all_infos info)
 
 displayStrings :: [String] -> [DisplayData]
 displayStrings = displayString . unlines

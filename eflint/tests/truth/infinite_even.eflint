@@ -1,3 +1,0 @@
-Fact even Identified by int Derived from even(int) When (int % 2 == 0).
-?even(4).
-?!even(5).

@@ -1,3 +1,0 @@
-!enable vote(citizen = John).
-!cast vote(voter = voter(John), candidate = John).
-!declare winner().

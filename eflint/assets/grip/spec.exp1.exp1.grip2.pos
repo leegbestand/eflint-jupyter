@@ -1,5 +1,0 @@
-
-!inform mayor[name = "Bruins"].
-!raise grip level to regional[name = "De Boer", name3 = "De Jong", name4 = "Sneijder"]. // De Boer should be name 1? TODO
-!inform operational leader.
-!inform operational leader.

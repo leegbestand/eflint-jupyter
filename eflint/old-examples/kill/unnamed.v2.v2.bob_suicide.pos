@@ -1,8 +1,0 @@
-!mix(Bob, Polonium, Salad).
-!mix(Bob, Sugar, Salad).
-!eat(Bob, Salad).
--alive(Bob).
-!qualify poisoning( Chloe, Bob, Bob).
-!qualify killing( Chloe, Bob, Bob).
-!prosecute(David, Bob, Bob).
-

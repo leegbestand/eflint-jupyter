@@ -1,6 +1,0 @@
-person. 
-alive.
-food.
-poison(substance="rat poison"). 
-poison(substance="polonium").
-(Foreach suspect,victim : prosecute(prosecutor="david")).

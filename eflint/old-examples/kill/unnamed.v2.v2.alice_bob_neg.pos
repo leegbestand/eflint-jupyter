@@ -1,7 +1,0 @@
-!mix(Alice,Salt,Curry).
-!mix(Alice, Sugar, Curry).
-!mix(Bob, Sugar, Curry).
-!eat(Bob, Curry).
--alive(Bob).
-?!Enabled(qualify poisoning(Chloe, Bob, Alice)).
-

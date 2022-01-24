@@ -1,6 +1,0 @@
-
-Fact actor
-  Identified by "alice" + "bob"
-
-Fact counter
-  Identified by 1..7

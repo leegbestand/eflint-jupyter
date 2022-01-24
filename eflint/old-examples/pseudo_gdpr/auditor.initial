@@ -1,5 +1,0 @@
-person. subject. controller.auditor.
-//give consent. collect consent. remove consent. store data. remove data. use data. ask access. ask removal. request to modify consent. modify consent. enable access.
-
-personal data(datatype = "phone number", person = "bob").
-personal data(datatype = "address", person = "alice").

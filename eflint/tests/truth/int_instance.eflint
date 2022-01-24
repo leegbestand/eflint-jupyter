@@ -1,6 +1,0 @@
-Fact x Identified by 1..20 Holds when True.
-
-?!x(0).
-?x(1).
-?x(20).
-?!x(25).

@@ -31,7 +31,6 @@ allow-newer: true
 #   - wai
 packages:
 - .
-- ./eflint
 # Dependency packages to be pulled from upstream that are not in the resolver.
 # These entries can reference officially published versions as well as
 # forks / in-progress versions pinned to a git hash. For example:
@@ -42,6 +41,7 @@ packages:
 #   commit: e7b331f14bcffb8367cd58fbfc8b40ec7642100a
 #
 extra-deps:
+  - eflint-3.0.0.1@sha256:33a3cd5a6c449f84da1088999620cecdea4db013ae07a6dfa2afee4de3017181,6742
   - exploring-interpreters-1.3.0.0@sha256:1d8a7ff9a860cf7105907969f0af4672c276d4ac14756f5eeede7a55e44e211a,1503
   - gll-0.4.0.13@sha256:ac3374c15cb3e88b908030e0177f81a3ba957427e83d6dea45375701b2afffda,3235
 

@@ -26,7 +26,7 @@ dependencies:
 - ipython-kernel
 - bytestring
 - aeson
-- flint-simulation
+- eflint
 - mtl
 - containers
 

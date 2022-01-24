@@ -1,7 +1,0 @@
-consumer. provider. 
-dataset(1).
-dataset(2).
-dataset(3).
-
-dataset contains(dataset(3),"location").
-

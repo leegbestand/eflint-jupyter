@@ -1,9 +1,0 @@
-!mix(person = "alice", substance = "salt", food = "curry").
-!mix(person = "alice", substance = "rat poison", food = "curry").
-!mix(person = "bob", substance = "sugar", food = "curry").
-!eat(person = "bob", food = "curry").
--alive(person = "bob").
-!qualify poisoning(investigator = "chloe", victim = "bob", suspect = "alice").
-!qualify killing(investigator = "chloe", suspect = "alice", victim = "bob" ).
-!prosecute(prosecutor = "david", suspect = "alice", victim = "bob").
-

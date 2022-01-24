@@ -23,7 +23,7 @@ languageConfig :: LanguageInfo
 languageConfig = LanguageInfo
   { languageName = "eFLINT"
   , languageVersion = "1.0.0"
-  , languageFileExtension = ".txt"
+  , languageFileExtension = ".eflint"
   , languageCodeMirrorMode = "null"
   , languagePygmentsLexer = "Text"
   , languageMimeType = "x/eflint"

@@ -5,12 +5,12 @@
 
 packages:
 - completed:
-    hackage: eflint-3.0.0.1@sha256:33a3cd5a6c449f84da1088999620cecdea4db013ae07a6dfa2afee4de3017181,6742
+    hackage: eflint-3.0.0.2@sha256:f1c30e7ea6118a11fa308f3ebc1d8f05e75d33988265af35f86bc2bb8db4c790,6597
     pantry-tree:
       size: 1230
-      sha256: 8b223af1b678ba5dad7421425408d2f8f8d1251e86d19f3fe00fe3cfcc0a5df7
+      sha256: 277ad650a3285db57c3f389e0b444cf45d0ee006227b02d1284c46b1a99558a8
   original:
-    hackage: eflint-3.0.0.1@sha256:33a3cd5a6c449f84da1088999620cecdea4db013ae07a6dfa2afee4de3017181,6742
+    hackage: eflint-3.0.0.2@sha256:f1c30e7ea6118a11fa308f3ebc1d8f05e75d33988265af35f86bc2bb8db4c790,6597
 - completed:
     hackage: exploring-interpreters-1.3.0.0@sha256:1d8a7ff9a860cf7105907969f0af4672c276d4ac14756f5eeede7a55e44e211a,1503
     pantry-tree:
